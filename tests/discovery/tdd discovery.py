@@ -1,8 +1,19 @@
 import pytest
-from src.discovery.domain.services.test_station import validate_PC
+from src.shared.domain.postal_code import PostalCode
 
-def test_postalCode_validation():
-    assert validate_PC("00000") == False
-    assert validate_PC("10399") == False
-    assert validate_PC("10115") == True
+def test_postal_code_validation():
 
+    pc = PostalCode("10115")
+    assert pc.value == "10115"
+
+    with pytest.raises(ValueError) as e:
+        PostalCode("ABCDE")
+    print("ERR : ", str(e.value))
+    
+    with pytest.raises(ValueError) as e:
+        PostalCode("1011")
+    print("ERR : ", str(e.value))
+
+    with pytest.raises(ValueError) as e:
+        PostalCode("75001")
+    print("ERR : ", str(e.value))
