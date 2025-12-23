@@ -1,3 +1,5 @@
+import pandas as pd
+
 class PostalCode:
     def __init__(self, value: str):
         self._validate(value)
@@ -13,3 +15,7 @@ class PostalCode:
 
         if not value.startswith('1'):
             raise ValueError(f"Not a valid Berlin postal code: {value}")
+
+        data_set = pd.read_csv('../infrastructure/datasets/geodata_berlin.csv')
+        if value not in data_set['PLZ'].values :
+            raise ValueError(f"Postal code is not in the dataSet: {value}")
